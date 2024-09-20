@@ -10,6 +10,7 @@ function updateTime() {
 }
 
 function spanishDate(date) {
+  
   var date = new Date(date);
   var options = {
     weekday: "long",
@@ -20,6 +21,35 @@ function spanishDate(date) {
   };
   return date.toLocaleDateString("es-DO", options);
 }
+
+const ads = [
+    {
+        img: 'assets/logo1.svg',
+        startTime: 1000,
+        displayTime: 10000
+    }
+]
+processAds(ads)
+
+function processAds(ads){
+    const adOverlay = document.querySelector('#overlay-ad')
+    const image = adOverlay.querySelector('img')
+    const close_btn = adOverlay.querySelector('button')
+    close_btn.onclick = closeAd
+    ads.forEach(ad => {
+        image.src = ad.img
+        setTimeout(() => showAd(ad.displayTime), ad.startTime)
+    })
+    
+    function showAd(displayTime) {
+        adOverlay.classList.remove('hidden')
+        setTimeout(closeAd, displayTime)
+    }
+    function closeAd() {
+        adOverlay.classList.add('hidden')
+    }
+}
+
 
 setInterval(updateTime, 1000);
 updateTime();
